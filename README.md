@@ -15,7 +15,7 @@ Your goal is to build a music API with the below endpoints and simple user inter
 ## API Endpoints:
 Edit the `server.js` file to create an api with the following endpoints:
 
-1. [ ] `/api/songs` GET all songs
+- [ ] `/api/songs` GET all songs
 - [ ] `/api/songs/id/:id` GET specific song by id   
   - [Express params docs - Read the 'Route Parameters section'](https://expressjs.com/en/guide/routing.html)
   - [Sequelize 'find' docs](http://docs.sequelizejs.com/en/latest/docs/models-usage/#find-search-for-one-specific-element-in-the-database)
@@ -50,7 +50,7 @@ Edit the `server.js` file to create an api with the following endpoints:
     - [Sequelize 'findOrCreate' docs](http://docs.sequelizejs.com/en/latest/docs/models-usage/#findorcreate-search-for-a-specific-element-or-create-it-if-not-available)
 
 ## User Interface:
-1. [ ] Edit the `script` tag in the 'all-artists.html' page (in the 'views' folder) to do the following: When you go to 'localhost:8888/view/all-artists' in your browser (the route is already set up for you in the server.js file), the page should display all the artists in your database as a list. You should only edit the `script` tag (and not the actual HTML). You can use either native DOM methods or jQuery.
+- [ ] Edit the `script` tag in the 'all-artists.html' page (in the 'views' folder) to do the following: When you go to 'localhost:8888/view/all-artists' in your browser (the route is already set up for you in the server.js file), the page should display all the artists in your database as a list. You should only edit the `script` tag (and not the actual HTML). You can use either native DOM methods or jQuery.
 - [ ] Edit the `script` tag in the 'all-songs.html' page (in the 'views' folder) to do the following: When you go to 'localhost:8888/view/all-songs' in your browser (the route is already set up for you in the server.js file), the page should display all the songs in your database as a list. The list should show both artist and title (for example, Frank Ocean - Pyramids). You should only edit the `script` tag (and not the actual HTML). You can use either native DOM methods or jQuery.
 - [ ] Edit the `script` tag in the 'artists-search.html' page (in the 'views' folder) to do the following: When you go to 'localhost:8888/view/artists-search' in your browser (the route is already set up for you in the server.js file) and type something into the input box and hit enter, you should get all the songs by the artist that you typed into the input box, and display the songs in a list on the page. For example, if you type 'Frank Ocean' into the input box and hit enter, you should see a list of all of Frank Ocean's songs as a result. Your list should include both title and artist. You should only edit the `script` tag (and not the actual HTML). You can use either native DOM methods or jQuery.
 - [ ] Edit the `script` tag in the 'youtube-search.html' page (in the 'views' folder) to do the following: When you go to 'localhost:8888/view/youtube-search' in your browser and you type something into the input box and hit enter, you should make an AJAX request to the YouTube API to search for video titles that match the input text. Display the search results on your page. You just need to display the title, not the actual video.
