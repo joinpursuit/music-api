@@ -8,9 +8,11 @@ const Artist = require('./models/artist-model');
 //create the artists table. using {force: true} will forcefully drop (aka delete) the artists table if it already exists
 Artist.sync({force: true})
 .then(() => {
+  //create the songs table
   Song.sync({force: true});
 })
 .then(() => {
+  //create all of the artists
   Artist.bulkCreate([
     {name: 'Frank Ocean'},
     {name: 'Odesza'},
@@ -20,12 +22,14 @@ Artist.sync({force: true})
   ])
 })
 .then(() => {
+  //find all of the newly created arists and return the results
+  //(if we try to immediately return the artists after bulkCreate, the ids may all show up as 'null')
   return Artist.findAll()
 })
 .then((artists) => {
+  //map the artists into an object that has artist name as key and artist id as values. this makes it a little easier to make sure we're getting the correct artist ids when we create new songs
   var artistIDsMap = Sequelize.Utils._.reduce(artists, (obj, artist) => Object.assign(obj, {[artist.dataValues.name]: artist.dataValues.id}), {});
-  // console.log(artists.forEach(artist) => console.log(artist.dataValues.id));
-  // Table created
+  //create all of the songs
   return Song.bulkCreate([
     {
       title: 'White Ferrari',
@@ -36,7 +40,7 @@ Artist.sync({force: true})
       artistId: artistIDsMap['Frank Ocean']
     },
     {
-      title: 'Ivy',
+      title: 'Sweet Life',
       artistId: artistIDsMap['Frank Ocean']
     },
     {
@@ -90,17 +94,8 @@ Artist.sync({force: true})
   ])
 })
 .then((data) => {
-  // console.log(data);
+  if(data) console.log('Database seed successful!');
+})
+.catch((err) => {
+  if(err) console.error('Seed error!', err);
 });
-
-// //artistId will be added to Song model
-// Song.belongsTo(Artist);
-// //songId will be added on Artist model
-// Song.hasOne(Artist);
-// //songIds will be added to Artist
-// Song.hasMany(Artist, {as: 'Artists'})
-//
-//
-// //This will create a new model called UserProject with the equivalent foreign keys projectId and  userId.
-// Project.belongsToMany(User, {through: 'UserProject'});
-// User.belongsToMany(Project, {through: 'UserProject'});

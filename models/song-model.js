@@ -11,5 +11,9 @@ var Song = sequelizeConnection.define('song', {
 //joining Song and Artist tables. this will aumatically add an 'artistId' field to the songs table
 //see the docs for more info: http://docs.sequelizejs.com/en/latest/docs/associations/
 Song.belongsTo(Artist);
+//there are a few other ways we can do this:
+// Song.belongsTo(Artist); // artistId will be added to Song model
+// Song.hasOne(Artist); //songId will be added on Artist model
+// Song.hasMany(Artist, {as: 'Artists'}); //songIds will be added to Artist
 
 module.exports = Song;
