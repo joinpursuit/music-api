@@ -5,12 +5,13 @@ const sequelizeConnection = require('./db');
 const Song = require('./models/song-model');
 const Artist = require('./models/artist-model');
 
+//create the artists table. using {force: true} will forcefully drop (aka delete) the artists table if it already exists
 Artist.sync({force: true})
 .then(() => {
-  return Song.sync({force: true});
+  Song.sync({force: true});
 })
 .then(() => {
-  return Artist.bulkCreate([
+  Artist.bulkCreate([
     {name: 'Frank Ocean'},
     {name: 'Odesza'},
     {name: 'Jungle'},
@@ -22,7 +23,6 @@ Artist.sync({force: true})
   return Artist.findAll()
 })
 .then((artists) => {
-  // let artistId = artist.dataValues.id;
   var artistIDsMap = Sequelize.Utils._.reduce(artists, (obj, artist) => Object.assign(obj, {[artist.dataValues.name]: artist.dataValues.id}), {});
   // console.log(artists.forEach(artist) => console.log(artist.dataValues.id));
   // Table created

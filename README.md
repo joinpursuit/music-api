@@ -1,10 +1,13 @@
-## Setup
-- Download Postico
-- Create a new postgresql database called 'music-db'
--  `npm install`
+## Setup:
+- Download [Postico](https://eggerapps.at/postico/) or [pgAdmin](https://www.pgadmin.org/) if you haven't already
+- Make sure [Postgres.app](http://postgresapp.com/) is open and running in the background
+- Use either Postico or pgAdmin to create a new postgresql database called 'music-db'
+-  run `npm install` from your terminal (make sure you `cd` into the correct directory first)
+- in the `db.js` file, there's a string that's being passed in as an argument to `Sequelize`. In that string, change 'natemaddrey' to your username (the exact username you use for your computer)
+- run `node seed.js` from your terminal to setup the database
 
 
-## API Endpoints
+## API Endpoints:
 Create an api with the following endpoints:
 
 - [ ] `/api/songs` GET all songs
@@ -32,20 +35,23 @@ Create an api with the following endpoints:
   - [Sequelize Relations/Assocations (aka JOIN queries)](http://docs.sequelizejs.com/en/latest/docs/querying/#relations-associations)
   - [How to Make Join Queries in Sequelize](http://stackoverflow.com/questions/20460270/how-to-make-join-querys-using-sequelize-in-nodejs)
 - [ ] go back and refactor all of your previous endpoints to include the full artist info
-- [ ] `/api/artists` POST a new artist
-  - [Sequelize 'findOrCreate' docs](http://docs.sequelizejs.com/en/latest/docs/models-usage/#findorcreate-search-for-a-specific-element-or-create-it-if-not-available)
+- [ ] `/api/artists` POST (aka create) a new artist
+  - [Sequelize 'create' docs](http://docs.sequelizejs.com/en/v3/docs/instances/#creating-persistent-instances)
 - [ ] `/api/artists/:id` DELETE a artist
-  - [Mongoose remove Docs](http://mongoosejs.com/docs/api.html#query_Query-remove)
+  - [Sequelize 'delete' docs](http://docs.sequelizejs.com/en/v3/docs/instances/#destroying-deleting-persistent-instances)
 - [ ] `/api/artists/:id` PUT (update) an artist
-  - [Mongoose findOneAndUpdate docs](http://mongoosejs.com/docs/api.html#query_Query-findOneAndUpdate)
+  - [Sequelize 'updating' docs](http://docs.sequelizejs.com/en/v3/docs/instances/#updating-saving-persisting-an-instance)
+- [ ] `/api/songs` POST a new song. The song should have an id for its artist as the 'artistId' field. In other words, if I created I have a 'Frank Ocean' entry in my 'artists' table that has an id of '1', a new Frank Ocean song would look like `{title: 'Sweet Life', artistId: 1}`. You should use `findOrCreate`to either find or create the artist, then use the id from that artist when you're creating your song:
+    - [Sequelize 'findOrCreate' docs](http://docs.sequelizejs.com/en/latest/docs/models-usage/#findorcreate-search-for-a-specific-element-or-create-it-if-not-available)
 
-## User Interface
-- [ ] create an 'html' page called 'all-songs.html'. The page should display all the songs in your database as a list
-- [ ] create an `html` page called 'artist-search.html'. add a text input box and submit button to the page. when you type something into the input box and hit enter, you should GET database entries for all of the songs by the artist that you typed into the input box. Display the songs in a list, and include both title and artist. Include an `app.get` route in your server for your new HTML file, so you can test it in your browser. 
+## User Interface:
+- [ ] Edit the `script` tag in the 'all-artists.html' page (in the 'views' folder) to do the following: When you go to 'localhost:8888/view/all-artists' in your browsers (the route is already set up for you in the server.js file), the page should display all the artists in your database as a list. You should only edit the `script` tag (and not the actual HTML). You can use either native DOM methods or jQuery.
+- [ ] Edit the `script` tag in the 'all-songs.html' page (in the 'views' folder) to do the following: When you go to 'localhost:8888/view/all-songs' in your browsers (the route is already set up for you in the server.js file), the page should display all the songs in your database as a list. The list should show both artist and title (for example, Frank Ocean - Pyramids). You should only edit the `script` tag (and not the actual HTML). You can use either native DOM methods or jQuery.
+- [ ] create an `html` page called 'artist-search.html'. add a text input box and submit button to the page. when you type something into the input box and hit enter, you should GET database entries for all of the songs by the artist that you typed into the input box. Display the songs in a list, and include both title and artist. Include an `app.get` route in your server for your new HTML file, so you can test it in your browser.
 - [ ] create an `html` page called 'youtube-search.html'. add a text input box and submit button to the page. when you type something into the input box and hit enter, you should make an AJAX request to the YouTube API to search for videos that match the input text. Display the search results on your page, by title. In other words you should render a list of youtube videos on your page whenever you submit something new into the input box. Include an `app.get` route in your server for your new HTML file, so you can test it in your browser.  
 - [ ] add a '+' button to your list of search results (in other words, each youtube video title in the search results should have a '+' button next to it). When you click the '+' button that specific song should be added to your database
 
-## Bonuses
+## Bonus:
 - refactor your routes to use express router
   - [Express Router Docs](http://expressjs.com/en/api.html#router)
   - [Learn to Use Express Router](https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4)
