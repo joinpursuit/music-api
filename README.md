@@ -15,8 +15,8 @@ Your goal is to build a music API with the below endpoints and simple user inter
 ## API Endpoints:
 Edit the `server.js` file to create an api with the following endpoints:
 
-- [ ] `/api/songs` GET all songs
-- [ ] `/api/songs/id/:id` GET specific song by id   
+[ ] `/api/songs` GET all songs
+[ ] `/api/songs/id/:id` GET specific song by id   
   - [Express params docs - Read the 'Route Parameters section'](https://expressjs.com/en/guide/routing.html)
   - [Sequelize 'find' docs](http://docs.sequelizejs.com/en/latest/docs/models-usage/#find-search-for-one-specific-element-in-the-database)
   - [Sequelize 'where' docs](http://docs.sequelizejs.com/en/latest/docs/querying/#where)
