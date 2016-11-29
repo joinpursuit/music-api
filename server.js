@@ -61,6 +61,10 @@ app.get('/api/songs/sort/by-date', (req, res)=>{
     order: [['createdAt', 'DESC']]
   }).then((data)=>{
     res.send(data)
+  })
+  .catch( (error) => {
+  	console.error(error)
+  	res.send(error)
   });
 });
 
@@ -95,6 +99,16 @@ app.get('/api/songs/first-five', (req, res) => {
 	});
 });
 
+//GET all songs with artist fully populated (in other words, the full artist information should be displayed, including artist name and id)
+app.get('/api/songs-with-artists', (req, res) => {
+	Song.findAll({
+			include: [Artist]
+	})
+	.then( (data) => {
+		res.send(data)
+	})
+})
+
 ////////////////////////////////////ARTISTS////////////////////////////////////////
 //GET all artists
 app.get('/api/artists', (req, res)=>{
@@ -122,3 +136,37 @@ app.get('/api/artists/id/:id', (req, res)=>{
     res.send(data)
   });
 });
+
+//GET specific artist by name
+app.get('/api/artists/name/:name', (req, res) => {
+	Artist.findOne({
+		where: {name: req.params.name}
+	})
+	.then( (data) => {
+		res.send(data);
+	});
+});
+
+//GET all artists except for 'Jungle'
+app.get('/api/artists/no-jungle', (req, res) => {
+	Artist.findAll({
+		where: {
+			$not: {name: "Jungle"}
+		}
+	})
+	.then( (data) => {
+		res.send(data);
+	});
+});
+
+//
+
+
+
+
+
+
+
+
+
+
