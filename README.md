@@ -1,5 +1,5 @@
 # Music API
-Your goal is to build a music API with the below endpoints and simple user interface.
+Your goal is to build a music API using youtube links. Your API should have the below endpoints and simple user interface:
 
 ## Setup:
 - fork and clone this repo
@@ -59,7 +59,7 @@ Edit the `server.js` file to create an api with the following endpoints:
 1. add a '+' button to your list of youtube search results (in other words, each youtube video title in the search results should have a '+' button next to it). When you click the '+' button that specific song should be added to your database as a new song.
 
 ## Bonuses:
-- on the 'all-songs' page embed the youtube videos along with the search results (in other words, instead of just the link, embed the entire video) 
+- on the 'all-songs' page embed the youtube videos along with the search results (in other words, instead of just the link, embed the entire video)
 - refactor your API to use express router
   - [Express Router Docs](http://expressjs.com/en/api.html#router)
   - [Learn to Use Express Router](https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4)
