@@ -27,7 +27,9 @@ app.get('/view/youtube-search', (req, res) => {res.sendFile(path.join(__dirname,
 
 //GET all songs from the database
 app.get('/api/songs', (req, res) => {
-	Song.findAll()
+	Song.findAll({
+    include: [Artist]
+  })
 	.then( (data) => {
 		//console.log(data)
 		res.send(data);
@@ -36,8 +38,7 @@ app.get('/api/songs', (req, res) => {
 
 //GET specific song by id
 app.get('/api/songs/id/:id', (req, res) => {
-	//console.log(req.params)
-	Song.findById(req.params.id)
+  Song.findById(req.params.id,{include: [Artist]})
 	.then( (data) => {
 		console.log(data)
 		res.send(data)
@@ -48,7 +49,8 @@ app.get('/api/songs/id/:id', (req, res) => {
 //GET specific song by name
 app.get('/api/songs/name/:name', (req, res)=>{
   Song.findOne({
-    where: {title: req.params.name}
+    where: {title: req.params.name},
+    include: [Artist]
   }).then((data)=>{
     res.send(data)
   });
@@ -158,15 +160,3 @@ app.get('/api/artists/no-jungle', (req, res) => {
 		res.send(data);
 	});
 });
-
-//
-
-
-
-
-
-
-
-
-
-
