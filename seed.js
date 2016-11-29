@@ -32,64 +32,79 @@ Artist.sync({force: true})
   //create all of the songs
   return Song.bulkCreate([
     {
-      title: 'White Ferrari',
-      artistId: artistIDsMap['Frank Ocean']
+      title: 'Swim Good',
+      artistId: artistIDsMap['Frank Ocean'],
+      youtube_url: 'https://www.youtube.com/watch?v=PmN9rZW0HGo'
     },
     {
       title: 'Pyramids',
-      artistId: artistIDsMap['Frank Ocean']
+      artistId: artistIDsMap['Frank Ocean'],
+      youtube_url: 'https://www.youtube.com/watch?v=UHy8hKXi2Pc'
     },
     {
       title: 'Sweet Life',
-      artistId: artistIDsMap['Frank Ocean']
+      artistId: artistIDsMap['Frank Ocean'],
+      youtube_url: 'https://www.youtube.com/watch?v=xmhrohsNJ7Y'
     },
     {
       title: 'Time',
-      artistId: artistIDsMap['Jungle']
+      artistId: artistIDsMap['Jungle'],
+      youtube_url: 'https://www.youtube.com/watch?v=5ItKS8bUUTA'
     },
     {
       title: 'Busy Earnin',
-      artistId: artistIDsMap['Jungle']
+      artistId: artistIDsMap['Jungle'],
+      youtube_url: 'https://www.youtube.com/watch?v=BcsfftwLUf0'
     },
     {
       title: 'The Heat',
-      artistId: artistIDsMap['Jungle']
+      artistId: artistIDsMap['Jungle'],
+      youtube_url: 'https://www.youtube.com/watch?v=Y4UckOGdZtI'
     },
     {
       title: 'My Friends Never Die',
-      artistId: artistIDsMap['Odesza']
+      artistId: artistIDsMap['Odesza'],
+      youtube_url: 'https://www.youtube.com/watch?v=NyPtlOoCmV4'
     },
     {
       title: 'Bloom',
-      artistId: artistIDsMap['Odesza']
+      artistId: artistIDsMap['Odesza'],
+      youtube_url: 'https://www.youtube.com/watch?v=wuC1fHTnuJs'
     },
     {
       title: 'Kusanagi',
-      artistId: artistIDsMap['Odesza']
+      artistId: artistIDsMap['Odesza'],
+      youtube_url: 'https://www.youtube.com/watch?v=I2mK-Ql9r1Y'
     },
     {
       title: 'Old 45s',
-      artistId: artistIDsMap['Chromeo']
+      artistId: artistIDsMap['Chromeo'],
+      youtube_url: 'https://www.youtube.com/watch?v=RY5lgaeki38'
     },
     {
       title: 'Jealous',
-      artistId: artistIDsMap['Chromeo']
+      artistId: artistIDsMap['Chromeo'],
+      youtube_url: 'https://www.youtube.com/watch?v=RhmUnk454MA'
     },
     {
       title: 'Night by Night',
-      artistId: artistIDsMap['Chromeo']
+      artistId: artistIDsMap['Chromeo'],
+      youtube_url: 'https://www.youtube.com/watch?v=6XCcWlgVqHA'
     },
     {
       title: 'The World Is Yours',
-      artistId: artistIDsMap['Nas']
+      artistId: artistIDsMap['Nas'],
+      youtube_url: 'https://www.youtube.com/watch?v=e5PnuIRnJW8'
     },
     {
       title: 'If I Ruled The World',
-      artistId: artistIDsMap['Nas']
+      artistId: artistIDsMap['Nas'],
+      youtube_url: 'https://www.youtube.com/watch?v=NW55FRXlPEs'
     },
     {
       title: 'NY State of Mind',
-      artistId: artistIDsMap['Nas']
+      artistId: artistIDsMap['Nas'],
+      youtube_url: 'https://www.youtube.com/watch?v=UKjj4hk0pV4'
     }
   ])
 })
