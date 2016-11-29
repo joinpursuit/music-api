@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 //'music-api' is the name of the database
 
 const sequelizeConnection = new Sequelize('postgres://gabrielbarriga@localhost:5432/music-api');
-//const sequelizeConnection = new Sequelize('postgres://crazykiwi@localhost:5432/music-api');
+// const sequelizeConnection = new Sequelize('postgres://crazykiwi@localhost:5432/music-api');
 
 //Test to see if the connection worked
 sequelizeConnection

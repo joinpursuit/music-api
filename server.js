@@ -38,8 +38,7 @@ app.get('/api/songs', (req, res) => {
 
 //GET specific song by id
 app.get('/api/songs/id/:id', (req, res) => {
-	//console.log(req.params)
-	Song.findById(req.params.id, {include: [Artist]})
+  Song.findById(req.params.id, {include: [Artist]})
 	.then( (data) => {
 		console.log(data)
 		res.send(data)
@@ -164,15 +163,3 @@ app.get('/api/artists/no-jungle', (req, res) => {
 		res.send(data);
 	});
 });
-
-//
-
-
-
-
-
-
-
-
-
-
