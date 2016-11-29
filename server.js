@@ -22,3 +22,11 @@ app.get('/view/youtube-search', (req, res) => {res.sendFile(path.join(__dirname,
 //////////
 // YOUR CODE HERE:
 //////////
+
+app.get('/', function(req,res){
+	Song
+	.findAll()
+	.then(function(data){
+		res.send(data)
+	})
+})
