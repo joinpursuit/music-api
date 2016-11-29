@@ -25,6 +25,7 @@ app.get('/view/youtube-search', (req, res) => {res.sendFile(path.join(__dirname,
 // YOUR CODE HERE:
 //////////
 
+//GET all songs from the database
 app.get('/api/songs', (req, res) => {
 	Song.findAll()
 	.then( (data) => {
@@ -32,8 +33,8 @@ app.get('/api/songs', (req, res) => {
 		res.send(data);
 	});
 });
-//GET all songs from the database
 
+//GET specific song by id
 app.get('/api/songs/id/:id', (req, res) => {
 	//console.log(req.params)
 	Song.findById(req.params.id)
@@ -42,9 +43,9 @@ app.get('/api/songs/id/:id', (req, res) => {
 		res.send(data)
 	});
 });
-//GET specific song by id
 
 
+//GET specific song by name
 app.get('/api/songs/name/:name', (req, res)=>{
   Song.findOne({
     where: {title: req.params.name}
@@ -52,9 +53,9 @@ app.get('/api/songs/name/:name', (req, res)=>{
     res.send(data)
   });
 });
-//GET specific song by name
 
 
+//GET all songs and order by date created
 app.get('/api/songs/sort/by-date', (req, res)=>{
   Song.findAll({
     order: [['createdAt', 'DESC']]
@@ -62,9 +63,9 @@ app.get('/api/songs/sort/by-date', (req, res)=>{
     res.send(data)
   });
 });
-//GET all songs and order by date created
 
 
+// GET all songs sorted alphabetically by title
 app.get('/api/songs/sort/a-z', (req, res)=>{
   Song.findAll({
     order:[['title', 'ASC']]
@@ -72,18 +73,18 @@ app.get('/api/songs/sort/a-z', (req, res)=>{
     res.send(data)
   });
 });
-// GET all songs sorted alphabetically by title
 
 
+// GET the count of the number of songs in the database
 app.get('/api/songs/count', (req, res) => {
 	Song.count()
 	.then( (total) => {
 		res.send("There are " + total + " songs in our database!");
 	});
 });
-// GET the count of the number of songs in the database
 
 
+//GET the first five songs, ordered by date created. You should return exactly five songs.
 app.get('/api/songs/first-five', (req, res) => {
 	Song.findAll({
 		order:[ ['createdAt', 'ASC'] ],
@@ -93,5 +94,31 @@ app.get('/api/songs/first-five', (req, res) => {
 		res.send(data)
 	});
 });
-//GET the first five songs, ordered by date created. You should return exactly five songs.
 
+////////////////////////////////////ARTISTS////////////////////////////////////////
+//GET all artists
+app.get('/api/artists', (req, res)=>{
+  Artist.findAll()
+  .then((data)=>{
+    res.send(data)
+  });
+});
+
+
+// GET all artists sorted alphabetically
+app.get('/api/artists/sort/a-z', (req, res)=>{
+  Artist.findAll({
+    order: [['name', 'ASC']]
+  })
+  .then((data)=>{
+    res.send(data);
+  });
+});
+
+// GET specific artist by id
+app.get('/api/artists/id/:id', (req, res)=>{
+  Artist.findById(req.params.id)
+  .then((data)=>{
+    res.send(data)
+  });
+});
