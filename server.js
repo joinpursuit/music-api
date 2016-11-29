@@ -163,3 +163,38 @@ app.get('/api/artists/no-jungle', (req, res) => {
 		res.send(data);
 	});
 });
+
+app.get('/api/artists/frank-or-chromeo', (req, res)=>{
+  Song.findAll({
+    where: {
+      $or: [{artistId: 1},{artistId: 4}]
+    },
+    include: [Artist]
+  })
+  .then((data)=>{
+    res.send(data);
+  })
+});
+
+app.post('/api/artists', (req, res)=>{
+  Artist.create({name: req.body.name})
+  .then(()=>{
+    res.send('Post created! Good job Gabe!')
+  })
+  .catch( (error)=> {
+    res.send(error)
+  } )
+});
+
+app.delete('/api/artists/:id', (req, res)=>{
+  Artist.findById(req.params.id)
+  .then((id)=>{
+     id.destroy()
+  })
+  .then(() =>{
+    res.sendStatus(200);
+  })
+  .catch( (error) => {
+    res.send(error);
+  })
+})
