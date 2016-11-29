@@ -119,7 +119,7 @@ app.get('/api/songs-with-artists', (req, res) => {
 app.get('/api/artists', (req, res)=>{
   Artist.findAll()
   .then((data)=>{
-    res.send(data)
+    res.send(data);
   });
 });
 
@@ -138,7 +138,7 @@ app.get('/api/artists/sort/a-z', (req, res)=>{
 app.get('/api/artists/id/:id', (req, res)=>{
   Artist.findById(req.params.id)
   .then((data)=>{
-    res.send(data)
+    res.send(data);
   });
 });
 
@@ -182,14 +182,14 @@ app.post('/api/artists', (req, res)=>{
     res.send('Post created! Good job Gabe!')
   })
   .catch( (error)=> {
-    res.send(error)
-  } )
+    res.send(error);
+  })
 });
 
 app.delete('/api/artists/:id', (req, res)=>{
   Artist.findById(req.params.id)
   .then((id)=>{
-     id.destroy()
+     id.destroy();
   })
   .then(() =>{
     res.sendStatus(200);
@@ -197,4 +197,37 @@ app.delete('/api/artists/:id', (req, res)=>{
   .catch( (error) => {
     res.send(error);
   })
-})
+});
+
+app.put('/api/artists/:id', (req, res) => {
+	Artist.findById(req.params.id)
+	.then( (artist) =>{
+		artist.update({name: req.body.name})
+	})
+	.then( () => {
+		res.sendStatus(200);
+	})
+	.catch( (error) => {
+		console.error(error);
+		console.log(error);
+	})
+});
+
+app.post('/api/songs', (req, res) => {
+	Artist.findOrCreate({
+		where: {name: req.body.name}
+	})
+	.then( (artist) =>{
+		return Song.create({
+			title: req.body.title,
+			youtube_url: req.body.url,
+			artistId: artist[0].dataValues.id
+		});
+	})
+	.then( (song) => {
+		res.send(song);
+	})
+	.catch( (error) =>{
+		res.send(error);
+	})
+});
