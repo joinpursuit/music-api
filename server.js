@@ -32,6 +32,7 @@ app.get('/api/songs', (req, res) => {
 		res.send(data);
 	});
 });
+//GET all songs from the database
 
 app.get('/api/songs/id/:id', (req, res) => {
 	//console.log(req.params)
@@ -41,6 +42,8 @@ app.get('/api/songs/id/:id', (req, res) => {
 		res.send(data)
 	});
 });
+//GET specific song by id
+
 
 app.get('/api/songs/name/:name', (req, res)=>{
   Song.findOne({
@@ -49,6 +52,8 @@ app.get('/api/songs/name/:name', (req, res)=>{
     res.send(data)
   });
 });
+//GET specific song by name
+
 
 app.get('/api/songs/sort/by-date', (req, res)=>{
   Song.findAll({
@@ -57,6 +62,8 @@ app.get('/api/songs/sort/by-date', (req, res)=>{
     res.send(data)
   });
 });
+//GET all songs and order by date created
+
 
 app.get('/api/songs/sort/a-z', (req, res)=>{
   Song.findAll({
@@ -65,3 +72,26 @@ app.get('/api/songs/sort/a-z', (req, res)=>{
     res.send(data)
   });
 });
+// GET all songs sorted alphabetically by title
+
+
+app.get('/api/songs/count', (req, res) => {
+	Song.count()
+	.then( (total) => {
+		res.send("There are " + total + " songs in our database!");
+	});
+});
+// GET the count of the number of songs in the database
+
+
+app.get('/api/songs/first-five', (req, res) => {
+	Song.findAll({
+		order:[ ['createdAt', 'ASC'] ],
+		limit: 5
+	})
+	.then( (data) => {
+		res.send(data)
+	});
+});
+//GET the first five songs, ordered by date created. You should return exactly five songs.
+
