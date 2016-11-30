@@ -63,6 +63,17 @@ router.route('/not/:artist')
 		})
 	})
 
+// router.route('/:artist1/')
+// 	.get(function (req, res){
+// 		Artist.findAll({where: {
+// 			$not: [{name: req.params.artist}]
+
+// 		}} )
+// 		.then((data) => {
+// 			res.send(data)
+// 		})
+// 	})
+
 
 
 module.exports = router;
