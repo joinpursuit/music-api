@@ -203,6 +203,7 @@ app.put('/api/artists/:id', (req, res) => {
 	Artist.findById(req.params.id)
 	.then( (artist) =>{
 		artist.update({name: req.body.name})
+		//artist.update(req.body) <= Also
 	})
 	.then( () => {
 		res.sendStatus(200);

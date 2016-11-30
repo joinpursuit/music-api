@@ -11,4 +11,14 @@
 // YOUR CODE HERE:
 ////////
 
+	let artist = document.getElementById('artists')
+	console.dir(artist)
+
+	$.ajax({
+		url: '/api/artists/sort/a-z',
+		success: (data) => {
+			console.log(data)
+			data.map( (artistObj) => artist.innerHTML += "<li>" + artistObj.name + "</li>" )
+		}
+	})
 </script>
