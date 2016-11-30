@@ -49,9 +49,14 @@ router.route('/sort/by-date')
 		})
 	})
 
-router.route('/not-')
+
+// instead of just filtering for jungle, I made this dynamic to filter out any artist
+// needs to be made to deal with two name artist
+router.route('/not/:artist')
 	.get(function (req, res){
-		Song.findOne({where: {name:""
+		Artist.findAll({where: {
+			$not: [{name: req.params.artist}]
+
 		}} )
 		.then((data) => {
 			res.send(data)
