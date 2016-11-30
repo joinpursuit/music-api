@@ -4,6 +4,8 @@ const router = require ("express").Router()
 
 router.use('/songs', require('./songs-router'))
 router.use('/artists', require('./artists-router'))
+router.use('/songs-with-artists', require('./songs-with-artists-router'))
+
 
 // router.use('/artists')
 

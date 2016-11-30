@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const sequelizeConnection = require('../db');
 const Artist = require('./artist-model');
 
-// create the Song model
+// create the Song model ** this is a schema and model all in one**
 var Song = sequelizeConnection.define('song', {
   title: {type: Sequelize.STRING},
   youtube_url: {type: Sequelize.STRING}

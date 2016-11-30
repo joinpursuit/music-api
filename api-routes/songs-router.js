@@ -70,10 +70,10 @@ router.route('/count')
 		})
 	})
 
-router.route('/add-song/:artist/:title')
-	.post(function(req,res){
-		Song.findOrCreate({where: req.params.artist} )
-	})
+// router.route('/add-song/:artist/:title')
+// 	.post(function(req,res){
+// 		Song.findOrCreate({where: req.params.artist} )
+// 	})
 
 // POST a new song. The song should have an id for its artist as the 'artistId' field. In other words, if I created I have a 'Frank Ocean' entry in my 'artists' table that has an id of '1', a new Frank Ocean song would look like {title: 'Sweet Life', artistId: 1}. You should use findOrCreateto either find or create the artist, then use the id from that artist when you're creating your song:
 
