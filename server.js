@@ -114,6 +114,18 @@ app.get('/api/songs-with-artists', (req, res) => {
 	})
 })
 
+app.delete('/api/songs/:id', (req, res)=>{
+  Song.destroy({
+  	where: {id: req.params.id}
+  })
+  .then(() =>{
+    res.sendStatus(200);
+  })
+  .catch( (error) => {
+    res.send(error);
+  })
+});
+
 ////////////////////////////////////ARTISTS////////////////////////////////////////
 //GET all artists
 app.get('/api/artists', (req, res)=>{
@@ -178,8 +190,8 @@ app.get('/api/artists/frank-or-chromeo', (req, res)=>{
 
 app.post('/api/artists', (req, res)=>{
   Artist.create({name: req.body.name})
-  .then(()=>{
-    res.send('Post created! Good job Gabe!')
+  .then((newPost)=>{
+    res.send(newPost)
   })
   .catch( (error)=> {
     res.send(error);
@@ -187,9 +199,12 @@ app.post('/api/artists', (req, res)=>{
 });
 
 app.delete('/api/artists/:id', (req, res)=>{
-  Artist.findById(req.params.id)
-  .then((id)=>{
-     id.destroy();
+  // Artist.findById(req.params.id)
+  // .then((id)=>{
+  //    id.destroy();
+  // })
+  Artist.destroy({
+  	where: {id: req.params.id}
   })
   .then(() =>{
     res.sendStatus(200);
@@ -200,10 +215,14 @@ app.delete('/api/artists/:id', (req, res)=>{
 });
 
 app.put('/api/artists/:id', (req, res) => {
-	Artist.findById(req.params.id)
-	.then( (artist) =>{
-		artist.update({name: req.body.name})
-		//artist.update(req.body) <= Also
+	// Artist.findById(req.params.id)
+	// .then( (artist) =>{
+	// 	artist.update({name: req.body.name})
+	// 	//artist.update(req.body) <= Also
+	// })
+	Artist.update({
+		name: req.body.name},
+		{where: {id: req.params.id}
 	})
 	.then( () => {
 		res.sendStatus(200);
@@ -219,10 +238,11 @@ app.post('/api/songs', (req, res) => {
 		where: {name: req.body.name}
 	})
 	.then( (artist) =>{
-		return Song.create({
-			title: req.body.title,
-			youtube_url: req.body.url,
-			artistId: artist[0].dataValues.id
+		return Song.findOrCreate({
+			where: {
+				title: req.body.title,
+				youtube_url: req.body.url,
+				artistId: artist[0].dataValues.id}
 		});
 	})
 	.then( (song) => {
