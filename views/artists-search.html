@@ -9,8 +9,32 @@
   </ul>
 </body>
 <script>
-////////
-// YOUR CODE HERE:
-////////
+  ////////
+  // YOUR CODE HERE:
+  ////////
+
+  $('#search-button').click(() =>{
+
+    let input = $('#artists-search-box').val();
+
+    if(input){
+      let $list = $('#songs');
+
+      $.ajax({
+        url: '/api/songs/artist/' + input,
+        success: function(data) {
+          $list.html('');
+
+          data.forEach((song) =>{
+            let artist = song.artist.name;
+            let title = song.title;
+
+            $list.append('<li>' + artist + ' - ' + title + '</li>');
+          })
+        }
+      })
+    }
+
+  })
 
 </script>
