@@ -1,7 +1,9 @@
 const express = require('express');
-const Sequelize = require('sequelize');
+const Artist = require('../models/artist-model');
 const Song = require('../models/song-model');
 const router = express.Router();
+
+///Functions///
 
 const getSongs = (req,res) => (
   Song.findAll()
@@ -10,25 +12,25 @@ const getSongs = (req,res) => (
 )
 
 const getSongById = (req,res) => (
-  Song.findById( req.params.id )
+  Song.findOne({ where: {id: req.params.id}, include: [Artist] })
     .then((song)=>res.send(song)
      )
   )
 
 const getSongByName = (req,res) => (
-  Song.findOne({ where: {title: req.params.name} })
+  Song.findOne({ where: {title: req.params.name}, include: [Artist] })
     .then((song)=>res.send(song)
      )
   )
 
 const getSongsByDate = (req,res) => (
-  Song.findAll({ order: [ ['createdAt', 'DESC'] ] })
+  Song.findAll({ order: [ ['createdAt', 'ASC'] ], include: [Artist] })
     .then((songs)=>res.send(songs)
       )
 	)
 
 const getSongsByTitle = (req,res) => (
-  Song.findAll({ order: [ ['title'] ] })
+  Song.findAll({ order: [ ['title'] ], include: [Artist] })
     .then((songs)=>res.send(songs)
       )
 	)
@@ -40,33 +42,54 @@ const getSongsCount = (req,res) => (
 	)
 
 const getFirstFiveSongs = (req,res) => (
-  Song.findAll({ order: [ ['createdAt', 'DESC'] ], limit: 5 })
+  Song.findAll({ order: [ ['createdAt', 'ASC'] ], limit: 5, include: [Artist] })
     .then((songs)=>res.send(songs)
     	)
 	)
 
 const postSong = (req,res) => {
 	let body = req.body;
-  Song.create({ title: body.title, youtube_url: body.url })
-  .then((info)=> console.log('Post with '+info+' created!'))
+	Artist.findOrCreate({ where: {name: body.artistName} })
+  .then( (artistInfo) => {
+  	Song.create({ 
+  		title: body.title, 
+  		youtube_url: body.youtube_url, 
+  		artistId: artistInfo[0].dataValues.id}) 
+  })
+  .then(()=> res.send('Song with '+body+' created!'))
 	}
 
-const updateSong = (req,res) => (
-  Song.update( where: { id: 16}, { artistId: 9 }, {fields: ['artistId']})
-    .then(())
-	)
+const updateSong = (req,res) => {
+  let body = req.body;
+	Song.findOne({ where: { id: req.params.id} })
+	.then( (songInfo)=>
+		songInfo.update( {
+  	  artistId: body.artistId,
+  	  title: body.title,
+  	  youtube_url: body.youtube_url
+  	   }, {
+  	  fields: ['artistId', 'title', 'youtube_url']
+  	  }
+    )
+  )
+  .then((id)=> res.send(id.title+ ' has been updated') )
+	}
 
-//task.update({ title: 'foooo', description: 'baaaaaar'}, {fields: ['title']}).then(function() {
- // title will now be 'foooo' but description is the very same as before
-//})
+const deleteSong = (req,res) => (
+  Song.destroy({ where: { id: req.params.id } })
+    .then(()=> res.send('Song with id: '+req.params.id+' has been deleted'))
+  )
+
+///Routes///
 
 router.route('/')
   .get(getSongs)
-  .post(postSong)
-//  .put(updateSong)
+  .post(postSong) // requires artistName, youtube_url, and title
 
 router.route('/id/:id')
   .get(getSongById)
+  .put(updateSong) // requires artistId, title, youtube_url
+  .delete(deleteSong)
 
 router.route('/name/:name')
 	.get(getSongByName)

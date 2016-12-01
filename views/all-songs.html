@@ -7,8 +7,29 @@
   </ul>
 </body>
 <script>
-////////
-// YOUR CODE HERE:
-////////
 
+$.ajax({
+	url: '/api/songs-with-artists/',
+	method: 'GET'
+})
+.done((data)=>
+	data.forEach((element)=> {
+	  let UlTag = document.getElementById('songs');
+	  //variable to id=songs
+	  let node = document.createElement('li');
+	  //makes li tag
+	  let link = document.createElement('a');
+	  //makes link tag
+	  link.setAttribute("href", element.youtube_url);
+	  //sets href of link to youtube_url
+		let textnode = document.createTextNode(element.artist.name+' - '+element.title);
+		//makes text of artist name - song title
+	  link.appendChild(textnode);
+	  //sets text of artist name - song title within link tag
+		node.appendChild(link);
+		// sets link tag into li
+		UlTag.appendChild(node);
+		//attaches to id=songs
+	})
+)
 </script>

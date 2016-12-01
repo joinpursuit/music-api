@@ -4,13 +4,12 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const sequelizeConnection = require('./db');
-//const Songs = require('./models/song-model');
-//const Artist = require('./models/artist-model');
 
+//ROUTERS
 const routers = require('./routers');
-const songsRouter = routers.songs;
-const artistsRouter = routers.artists;
-const songsWithArtistsRouter = routers.songsWithArtists;
+const songsRouter = routers.songsRouterFile;
+const artistsRouter = routers.artistsRouterFile;
+const songsWithArtistsRouter = routers.songsWithArtistsRouterFile;
 
 
 //body-parser middleware adds .body property to req (if we make a POST AJAX request with some data attached, that data will be accessible as req.body)

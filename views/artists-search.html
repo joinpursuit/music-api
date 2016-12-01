@@ -9,8 +9,32 @@
   </ul>
 </body>
 <script>
-////////
-// YOUR CODE HERE:
-////////
+
+$('#search-button').click(()=>{
+	$('#songs').empty();
+	//clear previous results
+  let text = $("#artists-search-box").val();
+  $.ajax({
+	url: '/api/artists/_-or-'+text,
+  method: 'GET'
+  })
+  .done((songs)=>{
+		songs.length===0 ? $('#songs').append('<p>No artist found</p>') :
+		songs.forEach((element)=> {
+		  let UlTag = document.getElementById('songs');
+		  //variable to id='songs'
+		  let node = document.createElement('li')
+		  //create li tag
+			let textnode = document.createTextNode(element.title);
+			//create text with song title
+			node.appendChild(textnode);
+			//set artist name to li tag
+			UlTag.appendChild(node);
+			//set li tag to id='songs'
+			$("#artists-search-box").val('')
+			//clear search box
+		})	
+   })
+})
 
 </script>

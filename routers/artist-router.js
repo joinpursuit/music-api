@@ -1,8 +1,9 @@
 const express = require('express');
-const Sequelize = require('sequelize');
 const Artist = require('../models/artist-model');
 const Song = require('../models/song-model');
 const router = express.Router();
+
+///Functions///
 
 const getArtists = (req,res) => (
   Artist.findAll()
@@ -22,29 +23,31 @@ const getArtistsByName = (req,res) => (
      )
   )
 
-const getArtistsButNoJungle = (req,res) => (
+const getArtistsExcept_ = (req,res) => (
   Artist.findAll({ 
   	where: { 
-  		$not: [ {name: 'Jungle'} ] 
+  		$not: [ {name: req.params.name} ] 
   	} 
   })
     .then((artists)=> res.send(artists)
     	)
 	)
 
-const getFrankOrChromeo = (req,res) => (
+const getArtist1orArtist2 = (req,res) => {
   Song.findAll({ 
-  	where: {
-			$or: [
-			  { artistId: [ 1, 4 ] }
-			  //{name: 'Frank Ocean'}
-			]  
-  	} 
+  	include: [{
+  		model: Artist,
+  		where: {
+  			$or: [
+  				{name: [req.params.name1, req.params.name2]}
+  			]
+  		}
+  	}]
   })
     .then((songs)=> res.send(songs)
     	)
-	)
-//include: model: Artist
+	}
+
 const postArtist = (req,res) => {
 	let body = req.body;
   Artist.create({ name: body.name })
@@ -53,17 +56,21 @@ const postArtist = (req,res) => {
 
 const deleteArtist = (req,res) => (
   Artist.destroy({ where: { id: req.params.id } })
-    .then((id)=> res.send(id+' has been deleted'))
+    .then((id)=> res.send(id.name+' has been deleted'))
   )
 
-const updateArtist = (req,res) => (
-  Artist.update({ where: { id: req.params.id} })
-    .then((id)=> res.send(id+ ' has been updated') )
-	)
+const updateArtist = (req,res) => {
+	let body = req.body;
+	 Artist.findOne({ where: { id: req.params.id} })
+	.then( (artistInfo)=>
+		artistInfo.update( {
+  	  name: body.name }
+    )
+  )
+  .then((artistInfo)=> res.send(artistInfo.name+' has been updated') )
+	}
 
-//task.update({ title: 'foooo', description: 'baaaaaar'}, {fields: ['title']}).then(function() {
-// title will now be 'foooo' but description is the very same as before
-//})
+///Routes///
 
 router.route('/')
   .get(getArtists)
@@ -75,11 +82,11 @@ router.route('/id/:id')
 router.route('/name/:name')
   .get(getArtistsByName)
 
-router.route('/no-jungle')
-  .get(getArtistsButNoJungle)
+router.route('/no-:name')
+  .get(getArtistsExcept_)
 
-router.route('/frank-or-chromeo')
-  .get(getFrankOrChromeo)
+router.route('/:name1-or-:name2')
+  .get(getArtist1orArtist2)
 
 router.route('/:id')
   .delete(deleteArtist)
