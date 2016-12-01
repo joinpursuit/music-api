@@ -11,4 +11,18 @@
 // YOUR CODE HERE:
 ////////
 
+let $songs = $('#songs')
+console.log($songs)
+
+//just using a get, use get instead of ajax, if using put/delete use .ajax
+$.get('/api/songs').done( (data) => {
+  console.log(data)
+  data.map((songObj)=>{
+    let name = songObj.artist.name + " - "
+    let title = songObj.title + " - "
+    let link = "<a href=" + songObj.youtube_url + ">YouTube Link</a>"
+     $songs.append('<li>'+ name + title + link + '</li>')
+  })
+})
+
 </script>
