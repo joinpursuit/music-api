@@ -10,5 +10,20 @@
 ////////
 // YOUR CODE HERE:
 ////////
+$.ajax({
+    url:'/api/songs',
+    method: 'GET'
 
+}).done((data)=>{
+    console.log(data)
+    data.map((song)=>{
+
+    var list = document.getElementById('songs');
+var item = document.createElement('li');
+    item.innerHTML= song.artist.name+'-'+song.title+' <a href="'+song.youtube_url+'">'+song.youtube_url+'<a>'
+    console.log('item after innerHTML',item);
+    list.appendChild(item);
+    console.log('list',list);
+})
+})
 </script>

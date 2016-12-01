@@ -12,5 +12,30 @@
 ////////
 // YOUR CODE HERE:
 ////////
+$.ajax({
+    url:'/api/songs-with-artists',
+    method: 'GET'
 
+}).done((data)=>{
+
+    $('#search-button').click(function(){
+      $('#songs').empty();
+      var input = $('#artists-search-box').val();
+      console.log(data)
+      console.log('input',input)
+      data.filter((val)=> {
+          return val.artist.name == input})
+      .map((song)=>{
+        var list = document.getElementById('songs');
+        var item = document.createElement('li');
+        item.innerHTML= song.artist.name+'-'+song.title+' <a href="'+song.youtube_url+'">'+song.youtube_url+'<a>'
+        list.appendChild(item);
+        console.log('list',song.artist.name);
+
+    })
+    $('#artists-search-box').val('');
+
+  })
+
+})
 </script>

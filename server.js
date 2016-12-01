@@ -6,7 +6,9 @@ const Sequelize = require('sequelize');
 const sequelizeConnection = require('./db');
 const Song = require('./models/song-model');
 const Artist = require('./models/artist-model');
-
+const songRouter = require('./routes').songRouter;
+const artistRouter = require('./routes').artistRouter;
+const SWARouter = require('./routes').SWARouter;
 //body-parser middleware adds .body property to req (if we make a POST AJAX request with some data attached, that data will be accessible as req.body)
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -21,4 +23,8 @@ app.get('/view/youtube-search', (req, res) => {res.sendFile(path.join(__dirname,
 
 //////////
 // YOUR CODE HERE:
+
+app.use('/api/songs',songRouter);
+app.use('/api/artists',artistRouter);
+app.use('/api/songs-with-artists',SWARouter);
 //////////
