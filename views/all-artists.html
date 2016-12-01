@@ -3,12 +3,27 @@
 </head>
 <body>
   <ul id="artists">
-
   </ul>
 </body>
 <script>
 ////////
 // YOUR CODE HERE:
 ////////
+//var list= $('#artists');
+
+$.ajax({
+    url:'/api/artists',
+    method: 'GET'
+
+}).done((data)=>{
+     data.map((artist,i)=>{
+        var list = document.getElementById('artists');
+        var item = document.createElement('li');
+        item.innerHTML= artist.name
+        console.log('item after innerHTML',item);
+        list.appendChild(item);
+        console.log('list',list);
+})
+})
 
 </script>
