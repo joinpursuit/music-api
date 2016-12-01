@@ -4,8 +4,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const sequelizeConnection = require('./db');
-const Song = require('./models/song-model');
-const Artist = require('./models/artist-model');
+const routes = require('./routes');
+const songsRouterFile = routes.songsRouterFile; // Linked to Index.js in Routes Folder
+const artistsRouterFile = routes.artistsRouterFile; //linked to Index.js in Routes Folder
+const songsWithArtistsRouterFile = routes.songsWithArtistsRouterFile;
 
 //body-parser middleware adds .body property to req (if we make a POST AJAX request with some data attached, that data will be accessible as req.body)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,3 +24,21 @@ app.get('/view/youtube-search', (req, res) => {res.sendFile(path.join(__dirname,
 //////////
 // YOUR CODE HERE:
 //////////
+
+app.use('/api/songs', songsRouterFile)
+app.use('/api/artists', artistsRouterFile)
+app.use('/api/songs-with-artists', songsWithArtistsRouterFile)
+
+
+//MEMO: Line 26 - Digs into Routes/Index.js then Index/js digs into Songs-Router.js
+
+
+
+
+
+
+
+
+
+
+
