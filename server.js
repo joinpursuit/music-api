@@ -160,14 +160,11 @@ app.post('/api/artists', (req,res) =>{
 //Here is where I can remove an artist from the database permeantly by using their ID number
 app.delete('/api/artists/:id', (req,res)=>{
 	Artist.destroy({where: {id: req.params.id}}).then((data,error)=>{
-		if(error){
-			throw error
-		} else {
 		console.log(data, 'you deleted it!');
 		res.send(data);
-		res.status(statusCode >= 100 && statusCode < 600 ? err.code : 500)
-		}
 	})
+}).catch((err)=>{
+	console.log(err, 'Error!')
 })
 
 //Here is where I updated the artists by referencing it by its ID number 
@@ -180,15 +177,27 @@ app.put('/api/artists/:id', (req,res) =>{
 
 //Here I am using a special method within sequelize and to find a specific artists or create a new one within the database
 app.post('/api/songs', (req,res) =>{
-Song.findOrCreate({where: {title: req.body.title,youtube_url:req.body.youtube_url}, defaults: {artistId: req.params.id}})
-  .spread(function(title, data) {
-    console.log(title.get({
-      plain: true
-    }))
-    console.log(data, 'New Song!');
-    res.send(data);
-  })
+Artist.findOrCreate({
+	where: {
+		name: req.body.name
+	}
+}).then((artist)=>{
+	console.log(artist[0].dataValues.id, 'this is the artist')
+	return Song.findOrCreate({
+		where:{
+			title:req.body.title,
+			artistId: artist[0].dataValues.id,
+			youtube_url:req.body.youtube_url
+		},
+		include:[Artist]
+	})
+}).then((song)=>{
+	console.log(artist,' New Artist');
+	res.send(song);
+}).catch((err)=>{
+	console.log(err);
 })
+
 
 
 
