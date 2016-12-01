@@ -13,4 +13,19 @@
 // YOUR CODE HERE:
 ////////
 
+
+// console.log($searchTerm.val())
+
+$('#search-button').click(()=>{
+  let $searchTerm = $('#artists-search-box').val()
+  console.log($searchTerm)
+  $.ajax({
+    url: "/api/artists/name/" + $searchTerm,
+    success: ((data)=> {let artistId = data.id
+    $.get( '/api/songs/id/' + artistId,
+      success: ((data)=>{console.log(data)})
+    )
+  })
+})
+
 </script>
