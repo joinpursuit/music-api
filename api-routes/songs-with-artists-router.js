@@ -9,8 +9,9 @@ const Artist= require ("../models/artist-model");
 
 router.route('/')
 	.get(function (req,res){
-
-		Song.findAll({include: [Artist]})
+		Song.findAll({
+			include: [Artist]
+		})
 		.then(function(songs){
 			console.log(songs);
 			res.send(songs);
