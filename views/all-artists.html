@@ -7,8 +7,18 @@
   </ul>
 </body>
 <script>
-////////
-// YOUR CODE HERE:
-////////
+  ////////
+  // YOUR CODE HERE:
+  ////////
+  $.ajax({
+    url: '/api/artists',
+    success: function(data) {
+      let $list = $('#artists');
+
+      data.forEach(artist => {
+        $list.append('<li>' + artist.name + '</li>');
+      })
+    }
+  })
 
 </script>

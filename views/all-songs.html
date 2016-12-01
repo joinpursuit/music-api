@@ -7,8 +7,23 @@
   </ul>
 </body>
 <script>
-////////
-// YOUR CODE HERE:
-////////
+  ////////
+  // YOUR CODE HERE:
+  ////////
+  $.ajax({
+    url: '/api/songs',
+    success: function(data) {
+      console.log(data);
+      let $list = $('#songs');
+
+      data.forEach(song => {
+        let artist = song.artist.name;
+        let title = song.title;
+        let link = song.youtube_url ? '<a href="' + song.youtube_url + '">YouTube Link</a>' : '';
+
+        $list.append('<li>' + artist + ' - ' + title + '    ' + link +'</li>');
+      })
+    }
+  })
 
 </script>
