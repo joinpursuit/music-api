@@ -22,3 +22,6 @@ app.get('/view/youtube-search', (req, res) => {res.sendFile(path.join(__dirname,
 //////////
 // YOUR CODE HERE:
 //////////
+
+
+app.use("/api",require('./api-routes'))
