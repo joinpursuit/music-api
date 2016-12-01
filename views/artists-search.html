@@ -20,6 +20,7 @@ $('#search-button').click(()=>{
   })
   .done((songs)=>{
 		songs.length===0 ? $('#songs').append('<p>No artist found</p>') :
+		//ternery op for artist not found
 		songs.forEach((element)=> {
 		  let UlTag = document.getElementById('songs');
 		  //variable to id='songs'
