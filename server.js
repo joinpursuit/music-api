@@ -150,3 +150,30 @@ app.get('/api/artists/frank-or-chromeo',(req,res)=>{
       res.send(data)
     })
 });
+
+app.post('/api/artists',(req,res)=>{
+  Artist.create({
+    name: req.body.name
+  }).then(()=>{
+    res.send('new artist added')
+  })
+});
+
+app.delete('/api/artists/:id',(req,res)=>{
+  Artist.destroy({
+    where: {
+    id: req.params.id}
+  }).then(()=>{
+    res.send('Artist #'+req.params.id + ' has been deleted')
+  })
+});
+
+app.put('/api/artists/:id',(req,res)=>{
+  Artist.update({
+  name: req.body.name},
+  {where: {
+      id: req.params.id}
+  }).then(()=>{
+    res.send('Artist '+req.body.name+' has been updated!')
+  })
+});
