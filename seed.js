@@ -9,11 +9,11 @@ const Artist = require('./models/artist-model');
 Artist.sync({force: true})
 .then(() => {
   //create the songs table
-  Song.sync({force: true});
+  return Song.sync({force: true});
 })
 .then(() => {
   //create all of the artists
-  Artist.bulkCreate([
+  return Artist.bulkCreate([
     {name: 'Frank Ocean'},
     {name: 'Odesza'},
     {name: 'Jungle'},
