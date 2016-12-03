@@ -10,5 +10,16 @@
 ////////
 // YOUR CODE HERE:
 ////////
+$.ajax({
+        url: "/api/artists",
+        type: 'GET',
+        success: (data)=>{
+          data.forEach((artist,index)=>{
+        $("#artists").append("<li id = "+index+">"+artist.name+"</li>")
+      })
+      // console.log(data[0].name)
+    }
+  });
+
 
 </script>

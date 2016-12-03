@@ -10,5 +10,16 @@
 ////////
 // YOUR CODE HERE:
 ////////
+$.ajax({
+        url: "/api/songs",
+        type: 'GET',
+        success: (data)=>{
+          data.forEach((songs,index)=>{
+        $("#songs").append("<li "+index+" = index>"+songs.artist.name+" - "+songs.title+ " "+
+          "<a href="+songs.youtube_url+">"+"YouTube Videos</a>"+"</li>")
+      })
+      // console.log(data)
+    }
+  });
 
 </script>

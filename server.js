@@ -25,6 +25,7 @@ app.get('/view/youtube-search', (req, res) => {res.sendFile(path.join(__dirname,
 //////////
 // YOUR CODE HERE:
 //////////
+
 app.get('/api/songs',(req,res)=>{
   Song.findAll({
   include: [Artist]
@@ -85,6 +86,20 @@ app.get('/api/songs/first-five', (req,res)=>{
     limit: 5
   }).then((data)=>{
     res.send(data)
+  })
+});
+
+app.post('/api/songs', (req,res)=>{
+  Artist.findOrCreate({
+    where: {
+    name: req.body.name}
+  }).then((artistinfo)=>{
+    res.send(
+      Song.create({
+        title: req.body.title,
+        artistId: artistinfo[0].dataValues.id,
+        youtube_url: req.body.youtube_url})
+    )
   })
 });
 
