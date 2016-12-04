@@ -165,6 +165,18 @@ app.get('/api/artists/frank-or-chromeo',(req,res)=>{
       res.send(data)
     })
 });
+//view html http://localhost:8888/view/artists-search
+app.get('/api/artists/findsongsby/:artist',(req,res)=>{
+  Song.findAll({
+      include: [{
+        model: Artist,
+        where: [{name:req.params.artist}]
+              }]
+  }).then((data)=>{
+      res.send(data)
+    })
+});
+
 
 app.post('/api/artists',(req,res)=>{
   Artist.create({

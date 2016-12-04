@@ -12,5 +12,19 @@
 ////////
 // YOUR CODE HERE:
 ////////
-
+$('#search-button').click(()=>{
+  $('#songs').empty()
+  var input = $('#youtube-search-box').val()
+  var apiKey = ''
+      $.ajax({  url:"https://www.googleapis.com/youtube/v3/search?part=snippet&q="+input+"&type=video&key="+apiKey,
+                type: 'GET',
+                success: (data) =>{
+                  data.items.forEach((song,index)=>{
+                    $('#songs').append('<li id ='+index+'>'+song.snippet.title+'</li>')
+                  })
+                }
+            })
+              $('#youtube-search-box').val('')
+                  // console.log(data.items[0].snippet.title)}
+  });
 </script>
