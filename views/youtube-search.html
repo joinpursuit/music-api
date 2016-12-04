@@ -12,16 +12,28 @@
 ////////
 // YOUR CODE HERE:
 ////////
+
+
 $('#search-button').click(()=>{
   $('#songs').empty()
+  var addSongToDb =
+      $.ajax({
+                url:  '/api/youtube/addsongs',
+                type: 'POST',
+                success: (data)=>{
+                console.log(data)
+                }
+              })
   var input = $('#youtube-search-box').val()
   var apiKey = ''
       $.ajax({  url:"https://www.googleapis.com/youtube/v3/search?part=snippet&q="+input+"&type=video&key="+apiKey,
                 type: 'GET',
                 success: (data) =>{
                   data.items.forEach((song,index)=>{
-                    $('#songs').append('<li id ='+index+'>'+song.snippet.title+'</li>')
-                  })
+                    $('#songs').append('<li id ='+index+'>'+song.snippet.title+'</li>\
+                    <button class = "butts" id ='+song.id.videoId+'>+</button>')})
+                    // $('#'+song.id.videoId).bind('click', addSongToDb()))
+                      // addSongToDb()
                 }
             })
               $('#youtube-search-box').val('')

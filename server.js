@@ -102,6 +102,20 @@ app.post('/api/songs', (req,res)=>{
     )
   })
 });
+//youtube view add new song
+app.post('/api/youtube/addsongs', (req,res)=>{
+  Artist.findOrCreate({
+    where: {
+    name: input}
+  }).then((artistinfo)=>{
+    res.send(
+      Song.create({
+        title: song.snippet.title,
+        artistId: artistinfo[0].dataValues.id,
+        youtube_url: $(event.target.value)})
+    )
+  })
+});
 
 app.get('/api/artists',(req,res)=>{
   Artist.findAll()
