@@ -12,5 +12,20 @@
 ////////
 // YOUR CODE HERE:
 ////////
+///api/artists/name/:id
+
+$('#search-button').click(()=>{
+  var input = $('#artists-search-box').val()
+  // console.log(input);
+  $.ajax({
+    url: '/api/artists/findsongsby/'+ input,
+    type: 'GET',
+    success: (data)=>{
+      data.forEach((songs,index)=>{
+      $('#songs').append("<li id = "+index+">"+songs.title+"</li>")
+      })
+      }
+    })
+});
 
 </script>
