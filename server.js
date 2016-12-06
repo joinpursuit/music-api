@@ -106,14 +106,13 @@ app.post('/api/songs', (req,res)=>{
 app.post('/api/youtube/addsongs', (req,res)=>{
   Artist.findOrCreate({
     where: {
-    name: $('#youtube-search-box').val()}
+    name: req.body.artist}
   }).then((artistinfo)=>{
     res.send(
-      console.log(artistinfo)
-      // Song.create({
-      //   title: song.snippet.title,
-      //   artistId: artistinfo[0].dataValues.id,
-      //   youtube_url: 'https://www.youtube.com/watch?v='+event.target.id})
+      Song.create({
+        title: req.body.title,
+        artistId: artistinfo[0].dataValues.id,
+        youtube_url: 'https://www.youtube.com/watch?v='+req.body.youtube_url})
     )
   })
 });
