@@ -22,6 +22,10 @@ app.get('/view/youtube-search', (req, res) => {res.sendFile(path.join(__dirname,
 //////////
 // YOUR CODE HERE:
 //////////
+
+//if using the routes/router
+//app.use("/api",require('./api-routes'))
+
 app.get('/api/songs', (req, res) => {
 	Song.findAll()
 	.then(data => {
@@ -67,7 +71,7 @@ app.get('/api/songs/sort/a-z', (req, res) => {
 
 app.get('/api/songs/count', (req, res) => {
 	Song.count()
-	.then((count) => res.send("this is the songs count: " + count))
+	.then((count) => res.send("this is the songs count: "  count))
 })
 
 app.get('/api/songs/first-five', (req, res) => {
@@ -181,3 +185,40 @@ app.put('/api/artists/:id', (req, res) => {
 			res.send("name updated")
 	})
 })
+
+//19
+app.post('/api/songs', (req, res) => {
+	Artist.findOrCreate(
+	{name: req.body.name}, 
+	{where: {
+			id: req.params.id
+		}
+	})
+	Song.findOrCreate
+	.then(data => {
+			res.send()
+	})
+})
+
+app.post('/api/songs', (req,res)=>{
+ 	//console.log('request: ', req.body)
+ 	Artist.findOrCreate({ 
+ 		where: {
+ 			name: req.body.name
+ 		}
+ 	})
+ 	.then((artist)=>{
+ 		console.log('artist: ', artist[0].dataValues.id)
+ 		Song.findOrCreate({
+ 			where: {
+ 				title: req.body.title,
+ 				artistId: artist[0].dataValues.id
+ 			},
+ 			include: [Artist]
+ 		})
+ 		.then((song)=>{
+ 			console.log("artist: ", artist);
+ 			res.send(song);
+ 		})
+ 	})
+ })
